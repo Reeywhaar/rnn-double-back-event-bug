@@ -10,6 +10,7 @@ import {useServices} from '../services';
 
 import {Section} from '../components/section';
 import {randomNum} from '../utils/help';
+import { setBackNavigation, useBackNavigationHandler } from '../utils/navigation';
 import {Reanimated2} from '../components/reanimated2';
 
 export const Example: NavigationFunctionComponent<ExampleScreenProps> = observer(
@@ -17,6 +18,11 @@ export const Example: NavigationFunctionComponent<ExampleScreenProps> = observer
     const {nav, t} = useServices();
     // const {} = useStores();
     // const {} = useConstants();
+
+		useBackNavigationHandler(componentId, () => {
+			console.log("BACK NAVIGATION CALLED ON COMPONENT ID", componentId)
+			Navigation.pop(componentId)
+		}, [])
 
     return (
       <View flex bg-bgColor>
@@ -65,3 +71,4 @@ export const Example: NavigationFunctionComponent<ExampleScreenProps> = observer
   },
 );
 
+Example.options = setBackNavigation(true)
